@@ -1,21 +1,25 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Modal } from '@/components/ui/Modal';
-import { Plus, Edit, Trash2, Target } from 'lucide-react';
+import { Plus, Edit, Trash2, Target, Lock, Crown, Sparkles } from 'lucide-react';
 import { SavingsGoal } from '@/types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 export default function GoalsPage() {
+  const router = useRouter();
   const [goals, setGoals] = useState<SavingsGoal[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isPremium, setIsPremium] = useState(false);
+  const [checkingPremium, setCheckingPremium] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     target_amount: '',
@@ -27,8 +31,23 @@ export default function GoalsPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
+    checkPremiumStatus();
     fetchGoals();
   }, []);
+
+  const checkPremiumStatus = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_premium')
+      .eq('id', user.id)
+      .single();
+
+    setIsPremium(profile?.is_premium || false);
+    setCheckingPremium(false);
+  };
 
   const fetchGoals = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -134,23 +153,79 @@ export default function GoalsPage() {
     }
   };
 
+  const FREE_GOALS_LIMIT = 3;
+  const canAddGoal = isPremium || goals.length < FREE_GOALS_LIMIT;
+
+  if (checkingPremium) {
+    return (
+      <div className="flex justify-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Objectifs d'épargne</h1>
-          <p className="text-gray-600 mt-1">Suivez vos projets et objectifs financiers</p>
+          <div className="flex items-center space-x-2">
+            <h1 className="text-3xl font-bold text-gray-900">Objectifs d'épargne</h1>
+            {isPremium && (
+              <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold rounded-full flex items-center">
+                <Crown size={14} className="mr-1" />
+                PREMIUM
+              </span>
+            )}
+          </div>
+          <p className="text-gray-600 mt-1">
+            Suivez vos projets et objectifs financiers
+            {!isPremium && ` (${goals.length}/${FREE_GOALS_LIMIT} objectifs gratuits)`}
+          </p>
         </div>
         <Button
           onClick={() => {
+            if (!canAddGoal) {
+              router.push('/pricing');
+              return;
+            }
             resetForm();
             setIsModalOpen(true);
           }}
+          disabled={!canAddGoal && !isPremium}
         >
-          <Plus size={20} className="mr-2" />
-          Ajouter un objectif
+          {!canAddGoal && !isPremium ? (
+            <>
+              <Lock size={20} className="mr-2" />
+              Passer Premium
+            </>
+          ) : (
+            <>
+              <Plus size={20} className="mr-2" />
+              Ajouter un objectif
+            </>
+          )}
         </Button>
       </div>
+
+      {!isPremium && goals.length >= FREE_GOALS_LIMIT && (
+        <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200">
+          <div className="flex items-start space-x-3">
+            <Lock className="text-yellow-600 mt-1" size={24} />
+            <div className="flex-1">
+              <h3 className="font-semibold text-yellow-900 mb-2">
+                Limite gratuite atteinte
+              </h3>
+              <p className="text-yellow-800 mb-3">
+                Vous avez atteint la limite de {FREE_GOALS_LIMIT} objectifs gratuits. Passez Premium pour créer des objectifs illimités et débloquer toutes les fonctionnalités.
+              </p>
+              <Button onClick={() => router.push('/pricing')} size="sm">
+                <Crown size={16} className="mr-2" />
+                Passer Premium - 5€/mois
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
 
       {loading ? (
         <div className="flex justify-center py-12">

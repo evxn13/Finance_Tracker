@@ -1,24 +1,43 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Brain, Sparkles, AlertCircle, Lightbulb, Trash2 } from 'lucide-react';
+import { Brain, Sparkles, AlertCircle, Lightbulb, Trash2, Lock, Crown } from 'lucide-react';
 import { AIInsight } from '@/types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 export default function InsightsPage() {
+  const router = useRouter();
   const [insights, setInsights] = useState<AIInsight[]>([]);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [dailyLimit, setDailyLimit] = useState({ used: 0, max: 2 });
+  const [isPremium, setIsPremium] = useState(false);
+  const [checkingPremium, setCheckingPremium] = useState(true);
 
   useEffect(() => {
+    checkPremiumStatus();
     fetchInsights();
     checkDailyLimit();
   }, []);
+
+  const checkPremiumStatus = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_premium')
+      .eq('id', user.id)
+      .single();
+
+    setIsPremium(profile?.is_premium || false);
+    setCheckingPremium(false);
+  };
 
   const checkDailyLimit = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -132,11 +151,72 @@ export default function InsightsPage() {
 
   const limitReached = dailyLimit.used >= dailyLimit.max;
 
+  if (checkingPremium) {
+    return (
+      <div className="flex justify-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
+  if (!isPremium) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold text-gray-900">Conseils IA</h1>
+
+        <Card className="text-center py-12 border-2 border-primary-200">
+          <Lock className="mx-auto text-primary-500 mb-4" size={64} />
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">
+            Fonctionnalité Premium
+          </h2>
+          <p className="text-gray-600 mb-6 max-w-lg mx-auto">
+            Les conseils IA personnalisés sont réservés aux utilisateurs Premium.
+            Passez Premium pour obtenir des recommandations basées sur votre situation financière.
+          </p>
+          <Button onClick={() => router.push('/pricing')}>
+            <Crown size={20} className="mr-2" />
+            Passer Premium - 5€/mois
+          </Button>
+        </Card>
+
+        <Card className="bg-primary-50 border-primary-200">
+          <h3 className="font-semibold text-primary-900 mb-3">
+            Avec Premium, vous obtiendrez :
+          </h3>
+          <ul className="space-y-2 text-primary-800">
+            <li className="flex items-start">
+              <Sparkles className="mr-2 mt-0.5 flex-shrink-0" size={20} />
+              <span>Conseils personnalisés générés par IA basés sur vos finances</span>
+            </li>
+            <li className="flex items-start">
+              <Sparkles className="mr-2 mt-0.5 flex-shrink-0" size={20} />
+              <span>Alertes et recommandations pour optimiser votre budget</span>
+            </li>
+            <li className="flex items-start">
+              <Sparkles className="mr-2 mt-0.5 flex-shrink-0" size={20} />
+              <span>Objectifs d'épargne illimités</span>
+            </li>
+            <li className="flex items-start">
+              <Sparkles className="mr-2 mt-0.5 flex-shrink-0" size={20} />
+              <span>Support prioritaire</span>
+            </li>
+          </ul>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Conseils IA</h1>
+          <div className="flex items-center space-x-2">
+            <h1 className="text-3xl font-bold text-gray-900">Conseils IA</h1>
+            <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-xs font-semibold rounded-full flex items-center">
+              <Crown size={14} className="mr-1" />
+              PREMIUM
+            </span>
+          </div>
           <p className="text-gray-600 mt-1">
             Recevez des recommandations personnalisées basées sur votre situation financière
           </p>

@@ -63,8 +63,18 @@ input::placeholder, textarea::placeholder {
 
 /* Dark mode override for better visibility */
 @media (prefers-color-scheme: dark) {
+  body {
+    color: #1f2937 !important;
+    background: white !important;
+  }
+
   input, textarea, select {
     color: #1f2937 !important;
     background-color: white !important;
+  }
+
+  /* Force all text elements to be dark */
+  h1, h2, h3, h4, h5, h6, p, span, div, label, button {
+    color: inherit !important;
   }
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase/client';
-import { Home, TrendingUp, TrendingDown, Target, CreditCard, Brain, LogOut, Menu, X } from 'lucide-react';
+import { Home, TrendingUp, TrendingDown, Target, CreditCard, Brain, LogOut, Menu, X, Crown } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 
 export default function DashboardLayout({
@@ -100,6 +100,9 @@ export default function DashboardLayout({
             </NavLink>
             <NavLink href="/dashboard/insights" icon={<Brain size={20} />} onClick={() => setSidebarOpen(false)}>
               Conseils IA
+            </NavLink>
+            <NavLink href="/dashboard/subscription" icon={<Crown size={20} />} onClick={() => setSidebarOpen(false)}>
+              Abonnement
             </NavLink>
           </nav>
 
