@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(powershell.exe -Command \"cd ''c:\\Users\\saman\\Desktop\\SAAS\\Carrier Support''; npm install\")",
+      "Bash(powershell.exe -Command \"cd ''c:\\Users\\saman\\Desktop\\SAAS\\Carrier Support''; npm install -D tailwindcss-animate class-variance-authority clsx tailwind-merge\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

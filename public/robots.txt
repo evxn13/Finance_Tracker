@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow pages that shouldn't be indexed
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+
+# Sitemap location
+Sitemap: https://financetrackers.app/sitemap.xml

@@ -9,6 +9,7 @@ import { Brain, Sparkles, AlertCircle, Lightbulb, Trash2, Lock, Crown } from 'lu
 import { AIInsight } from '@/types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { track } from '@vercel/analytics';
 
 export default function InsightsPage() {
   const router = useRouter();
@@ -75,6 +76,8 @@ export default function InsightsPage() {
   const generateInsights = async () => {
     setGenerating(true);
     try {
+      track('ai_insights_generate_started');
+
       const response = await fetch('/api/ai/generate-insights', {
         method: 'POST',
         headers: {
@@ -85,18 +88,29 @@ export default function InsightsPage() {
       const result = await response.json();
 
       if (response.ok) {
+        track('ai_insights_generate_success', {
+          insights_count: 3,
+          daily_usage: dailyLimit.used + 1
+        });
         alert(result.message || 'Conseils générés avec succès !');
         fetchInsights();
         checkDailyLimit();
       } else {
         if (response.status === 429) {
+          track('ai_insights_limit_reached', {
+            daily_limit: dailyLimit.max
+          });
           alert(result.message || 'Limite quotidienne atteinte. Réessayez demain !');
         } else {
+          track('ai_insights_generate_failed', {
+            error: result.error || 'Unknown error'
+          });
           alert(result.error || 'Erreur lors de la génération des conseils');
         }
       }
     } catch (error) {
       console.error('Error generating insights:', error);
+      track('ai_insights_generate_error');
       alert('Erreur lors de la génération des conseils');
     } finally {
       setGenerating(false);

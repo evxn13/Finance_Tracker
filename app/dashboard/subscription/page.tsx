@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Crown, CreditCard, Calendar, Check, AlertCircle, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { track } from '@vercel/analytics';
 
 interface Subscription {
   id: string;
@@ -30,6 +31,7 @@ interface PaymentHistory {
 
 export default function SubscriptionPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +39,15 @@ export default function SubscriptionPage() {
 
   useEffect(() => {
     fetchSubscriptionData();
-  }, []);
+
+    // Track successful subscription
+    if (searchParams.get('success') === 'true') {
+      track('premium_subscription_success', {
+        plan: 'monthly',
+        price: 5
+      });
+    }
+  }, [searchParams]);
 
   const fetchSubscriptionData = async () => {
     const { data: { user } } = await supabase.auth.getUser();

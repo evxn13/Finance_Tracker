@@ -18,12 +18,21 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  RadialBarChart,
+  RadialBar
 } from 'recharts';
 import { format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const COLORS = ['#ef4444', '#f59e0b', '#8b5cf6', '#10b981', '#3b82f6', '#ec4899', '#14b8a6', '#6b7280'];
+const COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', '#f59e0b', '#10b981', '#14b8a6', '#3b82f6'];
+const GRADIENT_COLORS = {
+  income: { start: '#10b981', end: '#059669' },
+  expense: { start: '#f43f5e', end: '#e11d48' },
+  savings: { start: '#8b5cf6', end: '#6366f1' }
+};
 
 export default function DashboardPage() {
   const [summary, setSummary] = useState<FinancialSummary>({
@@ -173,13 +182,13 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="fade-in-down">
         <h1 className="text-3xl font-bold text-gray-900">Tableau de bord</h1>
         <p className="text-gray-600 mt-1">Vue d'ensemble de votre situation financière</p>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
         <SummaryCard
           title="Revenus du mois"
           value={summary.totalIncome}
@@ -208,56 +217,82 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Monthly Trends */}
-        <Card title="Tendances mensuelles" subtitle="6 derniers mois">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 fade-in-up">
+        {/* Monthly Income vs Expenses - Bar Chart */}
+        <Card title="Revenus vs Dépenses" subtitle="6 derniers mois">
           <ResponsiveContainer width="100%" height={300}>
-            <AreaChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip formatter={(value) => `${Number(value).toFixed(2)} €`} />
-              <Legend />
-              <Area
-                type="monotone"
-                dataKey="revenus"
-                stackId="1"
-                stroke="#22c55e"
-                fill="#22c55e"
-                fillOpacity={0.6}
+            <BarChart data={monthlyData}>
+              <defs>
+                <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={GRADIENT_COLORS.income.start} stopOpacity={0.9} />
+                  <stop offset="100%" stopColor={GRADIENT_COLORS.income.end} stopOpacity={0.7} />
+                </linearGradient>
+                <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={GRADIENT_COLORS.expense.start} stopOpacity={0.9} />
+                  <stop offset="100%" stopColor={GRADIENT_COLORS.expense.end} stopOpacity={0.7} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="month" stroke="#6b7280" style={{ fontSize: '12px' }} />
+              <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} />
+              <Tooltip
+                formatter={(value) => `${Number(value).toFixed(2)} €`}
+                contentStyle={{
+                  backgroundColor: 'white',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                }}
               />
-              <Area
-                type="monotone"
-                dataKey="dépenses"
-                stackId="2"
-                stroke="#ef4444"
-                fill="#ef4444"
-                fillOpacity={0.6}
-              />
-            </AreaChart>
+              <Legend wrapperStyle={{ fontSize: '14px' }} />
+              <Bar dataKey="revenus" fill="url(#incomeGradient)" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="dépenses" fill="url(#expenseGradient)" radius={[8, 8, 0, 0]} />
+            </BarChart>
           </ResponsiveContainer>
         </Card>
 
-        {/* Expenses by Category */}
+        {/* Expenses by Category - Donut Chart */}
         <Card title="Dépenses par catégorie" subtitle="Mois en cours">
           {expensesByCategory.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
+                <defs>
+                  {COLORS.map((color, index) => (
+                    <linearGradient key={`gradient-${index}`} id={`colorGradient${index}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor={color} stopOpacity={0.9} />
+                      <stop offset="100%" stopColor={color} stopOpacity={0.6} />
+                    </linearGradient>
+                  ))}
+                </defs>
                 <Pie
                   data={expensesByCategory}
                   cx="50%"
                   cy="50%"
-                  labelLine={false}
-                  label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                  outerRadius={80}
-                  fill="#8884d8"
+                  innerRadius={60}
+                  outerRadius={90}
+                  paddingAngle={2}
                   dataKey="value"
+                  label={({ name, percent }) => percent > 0.05 ? `${name} ${(percent * 100).toFixed(0)}%` : ''}
+                  labelLine={false}
                 >
                   {expensesByCategory.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={`url(#colorGradient${index % COLORS.length})`}
+                      stroke="white"
+                      strokeWidth={2}
+                    />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${Number(value).toFixed(2)} €`} />
+                <Tooltip
+                  formatter={(value) => `${Number(value).toFixed(2)} €`}
+                  contentStyle={{
+                    backgroundColor: 'white',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                  }}
+                />
               </PieChart>
             </ResponsiveContainer>
           ) : (
@@ -265,6 +300,94 @@ export default function DashboardPage() {
               Aucune dépense pour ce mois
             </div>
           )}
+        </Card>
+
+        {/* Monthly Trends - Area Chart with Gradient */}
+        <Card title="Tendances mensuelles" subtitle="Évolution sur 6 mois">
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart data={monthlyData}>
+              <defs>
+                <linearGradient id="areaIncomeGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={GRADIENT_COLORS.income.start} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={GRADIENT_COLORS.income.start} stopOpacity={0.05} />
+                </linearGradient>
+                <linearGradient id="areaExpenseGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={GRADIENT_COLORS.expense.start} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={GRADIENT_COLORS.expense.start} stopOpacity={0.05} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="month" stroke="#6b7280" style={{ fontSize: '12px' }} />
+              <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} />
+              <Tooltip
+                formatter={(value) => `${Number(value).toFixed(2)} €`}
+                contentStyle={{
+                  backgroundColor: 'white',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                }}
+              />
+              <Legend wrapperStyle={{ fontSize: '14px' }} />
+              <Area
+                type="monotone"
+                dataKey="revenus"
+                stroke={GRADIENT_COLORS.income.start}
+                strokeWidth={2}
+                fill="url(#areaIncomeGradient)"
+              />
+              <Area
+                type="monotone"
+                dataKey="dépenses"
+                stroke={GRADIENT_COLORS.expense.start}
+                strokeWidth={2}
+                fill="url(#areaExpenseGradient)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </Card>
+
+        {/* Savings Rate Trend - Line Chart */}
+        <Card title="Taux d'épargne" subtitle="Évolution mensuelle">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={monthlyData.map(m => ({
+                month: m.month,
+                taux: m.revenus > 0 ? ((m.revenus - m.dépenses) / m.revenus * 100) : 0
+              }))}
+            >
+              <defs>
+                <linearGradient id="savingsLineGradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor={GRADIENT_COLORS.savings.start} />
+                  <stop offset="100%" stopColor={GRADIENT_COLORS.savings.end} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="month" stroke="#6b7280" style={{ fontSize: '12px' }} />
+              <YAxis
+                stroke="#6b7280"
+                style={{ fontSize: '12px' }}
+                label={{ value: '%', position: 'insideLeft' }}
+              />
+              <Tooltip
+                formatter={(value) => `${Number(value).toFixed(1)} %`}
+                contentStyle={{
+                  backgroundColor: 'white',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="taux"
+                stroke="url(#savingsLineGradient)"
+                strokeWidth={3}
+                dot={{ fill: GRADIENT_COLORS.savings.start, r: 5 }}
+                activeDot={{ r: 7, fill: GRADIENT_COLORS.savings.end }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </Card>
       </div>
     </div>
@@ -284,16 +407,24 @@ function SummaryCard({
   color: string;
   suffix?: string;
 }) {
+  const getGradientClass = () => {
+    if (title.includes('Revenus')) return 'from-emerald-500/10 to-emerald-500/5';
+    if (title.includes('Dépenses')) return 'from-rose-500/10 to-rose-500/5';
+    if (title.includes('Solde')) return 'from-blue-500/10 to-blue-500/5';
+    if (title.includes('Taux')) return 'from-purple-500/10 to-purple-500/5';
+    return 'from-gray-500/10 to-gray-500/5';
+  };
+
   return (
     <Card>
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-gray-600">{title}</p>
-          <p className={`text-2xl font-bold ${color} mt-1`}>
+        <div className="flex-1">
+          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
+          <p className={`text-3xl font-bold ${color} tracking-tight`}>
             {suffix === '%' ? value.toFixed(1) : value.toFixed(2)} {suffix}
           </p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-full">
+        <div className={`p-4 bg-gradient-to-br ${getGradientClass()} rounded-2xl shadow-sm`}>
           {icon}
         </div>
       </div>

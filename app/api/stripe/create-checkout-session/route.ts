@@ -3,7 +3,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2023-10-16',
 });
 
 export async function POST(request: NextRequest) {
@@ -14,6 +14,11 @@ export async function POST(request: NextRequest) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    // Get the base URL from the request headers (works in all environments)
+    const protocol = request.headers.get('x-forwarded-proto') || 'http';
+    const host = request.headers.get('host') || 'localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
 
     // Get user's profile
     const { data: profile } = await supabase
@@ -66,8 +71,8 @@ export async function POST(request: NextRequest) {
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/subscription?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing?canceled=true`,
+      success_url: `${baseUrl}/dashboard/subscription?success=true`,
+      cancel_url: `${baseUrl}/pricing?canceled=true`,
       metadata: {
         user_id: user.id,
       },

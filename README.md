@@ -1,30 +1,41 @@
-# Finance Tracker - Application de Gestion Financière Personnelle
+# Finance Tracker - Application de Gestion Financière
 
-Une application web moderne et sécurisée pour suivre et améliorer votre situation financière, avec des conseils personnalisés générés par IA.
+> Version BETA - Application SaaS de gestion financière personnelle avec conseils IA
 
-## Fonctionnalités
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14.1.0-black)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-### Gestion Financière
-- **Suivi des revenus et dépenses** : Enregistrez toutes vos transactions avec catégorisation
-- **Gestion des dettes** : Suivez vos emprunts et planifiez leur remboursement
-- **Objectifs d'épargne** : Définissez et suivez vos projets financiers
-- **Transactions récurrentes** : Support pour les revenus et dépenses réguliers
+Une application web moderne et sécurisée pour suivre et améliorer votre situation financière, avec des conseils personnalisés générés par Claude AI (Anthropic).
 
-### Visualisation et Analyses
-- **Dashboard interactif** : Vue d'ensemble de votre situation financière
-- **Graphiques dynamiques** : Visualisez vos tendances avec Recharts
-- **Statistiques détaillées** : Taux d'épargne, moyennes, totaux
-- **Analyse par catégorie** : Comprenez où va votre argent
+## ✨ Fonctionnalités
 
-### Intelligence Artificielle
-- **Conseils personnalisés** : Recommandations basées sur vos habitudes financières
-- **Alertes intelligentes** : Notifications sur des comportements à risque
-- **Analyses prédictives** : Suggestions pour atteindre vos objectifs
+### Version Gratuite
+- ✅ Suivi illimité des revenus et dépenses
+- ✅ Gestion des dettes avec calcul d'intérêts
+- ✅ Tableaux de bord visuels avec graphiques (Recharts)
+- ✅ Catégories personnalisables
+- ✅ **Maximum 3 objectifs d'épargne**
+- ✅ Statistiques et analyses de base
 
-### Sécurité
-- **Authentification sécurisée** : Powered by Supabase Auth
-- **Row Level Security (RLS)** : Vos données sont isolées et protégées
-- **HTTPS par défaut** : Communications cryptées
+### Version Premium 👑 (5€/mois)
+- 💎 **Conseils IA personnalisés** par Claude (Anthropic)
+- 💎 **Objectifs d'épargne illimités**
+- 💎 Support prioritaire
+- 💎 Export de données (à venir)
+- 💎 Badge Premium
+- 💎 Historique des paiements complet
+
+### Fonctionnalités techniques
+- 🔐 Authentification sécurisée (Supabase Auth)
+- 💳 Paiements Stripe en mode récurrent
+- 🤖 Intégration IA Claude 3 Haiku
+- 📊 **Vercel Analytics** - Suivi des événements utilisateur
+- ⚡ **Vercel Speed Insights** - Métriques de performance
+- 🍪 Gestion du consentement cookies (RGPD)
+- 🔒 Row Level Security (RLS)
+- 🎨 Interface responsive et moderne
+- 🏷️ Bannière BETA
 
 ## Stack Technologique
 
@@ -41,11 +52,14 @@ Une application web moderne et sécurisée pour suivre et améliorer votre situa
   - Auth : Authentification et gestion des utilisateurs
   - Row Level Security : Sécurité au niveau des lignes
 
-### IA
-- **OpenAI GPT-4** : Génération de conseils personnalisés
+### IA & Paiements
+- **Anthropic Claude 3 Haiku** : Génération de conseils personnalisés
+- **Stripe** : Gestion des paiements et abonnements
 
-### Déploiement
+### Déploiement & Monitoring
 - **Vercel** : Hébergement et déploiement continu
+- **Vercel Analytics** : Suivi des conversions et événements
+- **Vercel Speed Insights** : Core Web Vitals et performance
 
 ## Installation et Configuration
 

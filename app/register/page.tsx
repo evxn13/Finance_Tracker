@@ -34,6 +34,9 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
+      // Get the base URL for email confirmation redirect
+      const baseUrl = window.location.origin;
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -41,13 +44,21 @@ export default function RegisterPage() {
           data: {
             full_name: fullName,
           },
+          emailRedirectTo: `${baseUrl}/auth/confirm`,
         },
       });
 
       if (error) throw error;
 
       if (data.user) {
-        router.push('/dashboard');
+        // Check if email confirmation is required
+        if (data.user.email_confirmed_at) {
+          // User is already confirmed, redirect to dashboard
+          router.push('/dashboard');
+        } else {
+          // Email confirmation required, show success message
+          router.push('/register/success');
+        }
       }
     } catch (err: any) {
       setError(err.message || 'Une erreur est survenue lors de l\'inscription');
