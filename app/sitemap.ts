@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://financetrackers.app';
+  const baseUrl = 'https://www.financetrackers.app';
 
   return [
     {

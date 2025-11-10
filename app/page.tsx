@@ -4,13 +4,15 @@ import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesShowcase } from '@/components/home/FeaturesShowcase';
 import { SocialProof } from '@/components/home/SocialProof';
 import { Testimonials } from '@/components/home/Testimonials';
+import { SEOContent } from '@/components/home/SEOContent';
+import { SocialShare } from '@/components/home/SocialShare';
 import { CTASection } from '@/components/home/CTASection';
 import { Footer } from '@/components/home/Footer';
 import { StructuredData } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
-  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés par Claude, objectifs d'épargne et insights financiers. Essai gratuit, sans carte bancaire.",
+  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne. Essai gratuit.",
   keywords: [
     'gestion finances',
     'budget personnel',
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
     description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne.",
-    url: 'https://financetrackers.app',
+    url: 'https://www.financetrackers.app',
     siteName: 'Finance Tracker',
     images: [
       {
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   alternates: {
-    canonical: 'https://financetrackers.app',
+    canonical: 'https://www.financetrackers.app',
   },
 };
 
@@ -56,8 +58,8 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Finance Tracker',
-  url: 'https://financetrackers.app',
-  logo: 'https://financetrackers.app/logo.png',
+  url: 'https://www.financetrackers.app',
+  logo: 'https://www.financetrackers.app/logo.png',
   description: "Application de gestion financière personnelle propulsée par l'IA Claude",
   sameAs: [
     // Ajoutez vos réseaux sociaux ici quand disponibles
@@ -141,6 +143,8 @@ export default function Home() {
           <SocialProof />
           <FeaturesShowcase />
           <Testimonials />
+          <SEOContent />
+          <SocialShare />
           <CTASection />
         </main>
         <Footer />

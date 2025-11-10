@@ -9,12 +9,16 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://financetrackers.app'),
+  metadataBase: new URL('https://www.financetrackers.app'),
   title: {
     default: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
     template: "%s | Finance Tracker"
   },
-  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés par Claude, objectifs d'épargne et insights financiers. Essai gratuit.",
+  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne. Essai gratuit.",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   keywords: [
     'gestion finances',
     'budget personnel',
@@ -38,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    url: 'https://financetrackers.app',
+    url: 'https://www.financetrackers.app',
     title: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
     description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne.",
     siteName: 'Finance Tracker',
