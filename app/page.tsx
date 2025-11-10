@@ -12,7 +12,7 @@ import { StructuredData } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: "Finance Tracker - Prenez le Contrôle de Vos Finances avec l'IA",
-  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne. Essai gratuit.",
+  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés par Claude, objectifs d'épargne et insights financiers. Essai gratuit, sans carte bancaire.",
   keywords: [
     'gestion finances',
     'budget personnel',

@@ -5,6 +5,7 @@ import { BetaBanner } from "@/components/BetaBanner";
 import { CookieConsent } from "@/components/CookieConsent";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     default: "Finance Tracker - Prenez le Contrôle de Vos Finances avec l'IA",
     template: "%s | Finance Tracker"
   },
-  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne. Essai gratuit.",
+  description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés par Claude, objectifs d'épargne et insights financiers. Essai gratuit, sans carte bancaire.",
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
@@ -88,6 +89,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
+        <GoogleAnalytics />
         <BetaBanner />
         {children}
         <CookieConsent />

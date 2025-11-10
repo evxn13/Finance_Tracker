@@ -6,6 +6,9 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Optimisation des polices (réduit render-blocking)
+  optimizeFonts: true,
+  
   // Optimisation des images
   images: {
     formats: ['image/avif', 'image/webp'],
