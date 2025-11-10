@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
-import { TrendingUp, Home, ArrowLeft, Search } from 'lucide-react';
+import { TrendingUp, Home, Search } from 'lucide-react';
+import { BackButton } from '@/components/BackButton';
 
 export default function NotFound() {
   return (
@@ -58,15 +59,7 @@ export default function NotFound() {
               Retour à l'accueil
             </Button>
           </Link>
-          <Button
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto"
-            onClick={() => window.history.back()}
-          >
-            <ArrowLeft className="mr-2 w-5 h-5" />
-            Page précédente
-          </Button>
+          <BackButton />
         </div>
       </div>
     </div>
