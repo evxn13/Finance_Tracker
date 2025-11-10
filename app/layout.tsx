@@ -17,8 +17,12 @@ export const metadata: Metadata = {
   },
   description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés par Claude, objectifs d'épargne et insights financiers. Essai gratuit, sans carte bancaire.",
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/logo.png',
+    shortcut: '/logo.png',
   },
   keywords: [
     'gestion finances',
@@ -49,7 +53,7 @@ export const metadata: Metadata = {
     siteName: 'Finance Tracker',
     images: [
       {
-        url: '/og-image.png',
+        url: '/logo.png',
         width: 1200,
         height: 630,
         alt: 'Finance Tracker - Gestion financière intelligente',
@@ -60,7 +64,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Finance Tracker - Prenez le Contrôle de Vos Finances avec l'IA",
     description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés.",
-    images: ['/og-image.png'],
+    images: ['/logo.png'],
     creator: '@financetracker',
   },
   robots: {
