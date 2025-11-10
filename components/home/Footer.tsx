@@ -58,27 +58,27 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link href="/features" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Features
+                  Fonctionnalités
                 </Link>
               </li>
               <li>
                 <Link href="/pricing" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Pricing
+                  Tarifs
                 </Link>
               </li>
               <li>
                 <Link href="/gestion-budget" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Gestion Budget
+                  Guide Budget
                 </Link>
               </li>
               <li>
                 <Link href="/suivi-depenses" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Suivi Dépenses
+                  Application Dépenses
                 </Link>
               </li>
               <li>
                 <Link href="/register" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Sign Up
+                  Inscription
                 </Link>
               </li>
             </ul>

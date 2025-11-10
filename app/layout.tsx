@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.financetrackers.app'),
   title: {
-    default: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
+    default: "Finance Tracker - Prenez le Contrôle de Vos Finances avec l'IA",
     template: "%s | Finance Tracker"
   },
   description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne. Essai gratuit.",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     url: 'https://www.financetrackers.app',
-    title: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
+    title: "Finance Tracker - Prenez le Contrôle de Vos Finances avec l'IA",
     description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés, objectifs d'épargne.",
     siteName: 'Finance Tracker',
     images: [
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Finance Tracker - Gérez vos finances intelligemment avec l'IA",
+    title: "Finance Tracker - Prenez le Contrôle de Vos Finances avec l'IA",
     description: "Prenez le contrôle de vos finances avec Finance Tracker. Suivi en temps réel, conseils IA personnalisés.",
     images: ['/og-image.png'],
     creator: '@financetracker',

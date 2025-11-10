@@ -25,10 +25,10 @@ export function HeroSection() {
 
           {/* Main headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 sm:mb-8 tracking-tight leading-tight fade-in-up">
-            Prenez le contrôle de
+            Finance Tracker : Prenez le contrôle de
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500">
-              vos finances
+              vos finances avec l'IA
             </span>
           </h1>
 

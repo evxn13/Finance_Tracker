@@ -10,7 +10,7 @@ export function SEOContent() {
           </h2>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            <strong>Finance Tracker</strong> est l'application de <strong>gestion de budget</strong> la plus complète et intuitive disponible en France. Que vous souhaitiez simplement <strong>suivre vos dépenses</strong> ou atteindre des <strong>objectifs d'épargne</strong> ambitieux, notre plateforme vous accompagne à chaque étape de votre parcours financier.
+            Finance Tracker est l'application de gestion de budget la plus complète et intuitive disponible en France. Que vous souhaitiez simplement suivre vos dépenses ou atteindre des objectifs d'épargne ambitieux, notre plateforme vous accompagne à chaque étape de votre parcours financier.
           </p>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">
@@ -18,7 +18,7 @@ export function SEOContent() {
           </h3>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Contrairement aux applications de <strong>gestion finances</strong> traditionnelles, Finance Tracker utilise l'<strong>intelligence artificielle</strong> pour analyser vos habitudes de consommation et vous proposer des recommandations personnalisées. Notre système, propulsé par <strong>Claude AI</strong>, identifie automatiquement les opportunités d'économies et vous aide à optimiser votre <strong>budget personnel</strong>.
+            Contrairement aux applications de gestion finances traditionnelles, Finance Tracker utilise l'intelligence artificielle pour analyser vos habitudes de consommation et vous proposer des recommandations personnalisées. Notre système, propulsé par Claude AI, identifie automatiquement les opportunités d'économies et vous aide à optimiser votre budget personnel.
           </p>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">
@@ -26,7 +26,7 @@ export function SEOContent() {
           </h3>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Le <strong>suivi dépenses</strong> n'a jamais été aussi simple. Ajoutez vos transactions en quelques secondes depuis votre smartphone ou ordinateur. Finance Tracker catégorise automatiquement vos dépenses (alimentation, transport, loisirs, etc.) et génère des graphiques interactifs pour visualiser où va votre argent. Plus besoin de tenir un <strong>budget mensuel</strong> manuellement dans un tableur.
+            Le suivi dépenses n'a jamais été aussi simple. Ajoutez vos transactions en quelques secondes depuis votre smartphone ou ordinateur. Finance Tracker catégorise automatiquement vos dépenses (alimentation, transport, loisirs, etc.) et génère des graphiques interactifs pour visualiser où va votre argent. Plus besoin de tenir un budget mensuel manuellement dans un tableur.
           </p>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">
@@ -34,7 +34,7 @@ export function SEOContent() {
           </h3>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Définissez des <strong>objectifs d'épargne</strong> personnalisés et suivez votre progression en temps réel. Que vous économisiez pour un voyage, un achat important ou simplement pour constituer une réserve, Finance Tracker vous montre exactement combien vous devez économiser chaque mois et vous envoie des notifications pour rester motivé.
+            Définissez des objectifs d'épargne personnalisés et suivez votre progression en temps réel. Que vous économisiez pour un voyage, un achat important ou simplement pour constituer une réserve, Finance Tracker vous montre exactement combien vous devez économiser chaque mois et vous envoie des notifications pour rester motivé.
           </p>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">
@@ -42,7 +42,7 @@ export function SEOContent() {
           </h3>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Vos données financières sont précieuses. C'est pourquoi Finance Tracker utilise un <strong>cryptage de bout en bout</strong> et est conforme au <strong>RGPD</strong>. Vos informations ne sont jamais vendues à des tiers, et vous gardez le contrôle total sur vos données. Les paiements sont sécurisés via <strong>Stripe</strong>, le leader mondial des paiements en ligne.
+            Vos données financières sont précieuses. C'est pourquoi Finance Tracker utilise un cryptage de bout en bout et est conforme au RGPD. Vos informations ne sont jamais vendues à des tiers, et vous gardez le contrôle total sur vos données. Les paiements sont sécurisés via Stripe, le leader mondial des paiements en ligne.
           </p>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">
@@ -50,7 +50,7 @@ export function SEOContent() {
           </h3>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Finance Tracker propose un <strong>plan gratuit complet</strong> qui inclut le suivi des revenus et dépenses, la gestion des dettes, et les tableaux de bord visuels. Pour seulement <strong>5€ par mois</strong>, le plan Premium débloque les <strong>conseils IA personnalisés</strong>, les objectifs d'épargne illimités, l'export PDF de vos rapports et le support prioritaire. Aucun engagement, annulation à tout moment.
+            Finance Tracker propose un plan gratuit complet qui inclut le suivi des revenus et dépenses, la gestion des dettes, et les tableaux de bord visuels. Pour seulement 5€ par mois, le plan Premium débloque les conseils IA personnalisés, les objectifs d'épargne illimités, l'export PDF de vos rapports et le support prioritaire. Aucun engagement, annulation à tout moment.
           </p>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">
@@ -58,7 +58,7 @@ export function SEOContent() {
           </h3>
           
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Rejoignez des milliers d'utilisateurs qui ont déjà pris le contrôle de leurs <strong>finances personnelles</strong> avec Finance Tracker. L'inscription prend moins de 2 minutes, <strong>aucune carte bancaire requise</strong> pour le plan gratuit. Commencez à <strong>tracker vos dépenses</strong> dès aujourd'hui et découvrez où va vraiment votre argent.
+            Rejoignez des milliers d'utilisateurs qui ont déjà pris le contrôle de leurs finances personnelles avec Finance Tracker. L'inscription prend moins de 2 minutes, aucune carte bancaire requise pour le plan gratuit. Commencez à tracker vos dépenses dès aujourd'hui et découvrez où va vraiment votre argent.
           </p>
         </div>
       </div>
